@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Carts;
 use Illuminate\Http\Request;
 
 class CartsController extends Controller
@@ -11,7 +12,11 @@ class CartsController extends Controller
      */
     public function index()
     {
-        //
+        // Retrieve all Carts from the database
+        $carts = Carts::all();
+
+        // Return a JSON response with the tasks data
+        return response()->json(['data' => $carts]);
     }
 
     /**

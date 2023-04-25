@@ -2,7 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Validator;
+
+use App\Models\Product;
 use Illuminate\Http\Request;
+
+use Symfony\Component\HttpFoundation\Response;
+
 
 class ProductController extends Controller
 {
@@ -11,7 +17,11 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        // Retrieve all Product from the database
+        $products = Product::all();
+
+        // Return a JSON response with the tasks data
+        return response()->json(['data' => $products], Response::HTTP_OK);
     }
 
     /**
@@ -27,7 +37,29 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Define validation rules for the task data
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'description' => 'required|string|max:255',
+            'categories_id' => 'required|nullable|integer',
+            'price' => 'required|integer',
+            'image_url' => 'required|file|mimes:jpeg,png',
+        ]);
+
+        // If validation fails, return an error response
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors()], 400);
+        }
+
+        $image_path = $request->file('image_url')->store('image', 'public');
+
+        // Create a new task object with the validated data
+        $data = $request->all();
+        $data['image_url'] = $image_path;
+        $product = Product::create($data);
+
+        // Return a success response with the created task data
+        return response()->json(['data' => $product], Response::HTTP_CREATED);
     }
 
     /**
@@ -35,7 +67,16 @@ class ProductController extends Controller
      */
     public function show(string $id)
     {
-        //
+        // Retrieve the Product from the database by ID
+        $product = Product::find($id);
+
+        // If the task doesn't exist, return an error response
+        if (!$product) {
+            return response()->json(['error' => 'Product not found'], 404);
+        }
+
+        // Return a JSON response with the task data
+        return response()->json(['data' => $product]);
     }
 
     /**

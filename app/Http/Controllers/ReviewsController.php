@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Reviews;
 use Illuminate\Http\Request;
 
 class ReviewsController extends Controller
@@ -11,7 +12,11 @@ class ReviewsController extends Controller
      */
     public function index()
     {
-        //
+        // Retrieve all Reviews from the database
+        $reviews = Reviews::all();
+
+        // Return a JSON response with the tasks data
+        return response()->json(['data' => $reviews]);
     }
 
     /**

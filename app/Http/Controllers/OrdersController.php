@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Orders;
 use Illuminate\Http\Request;
 
 class OrdersController extends Controller
@@ -11,7 +12,11 @@ class OrdersController extends Controller
      */
     public function index()
     {
-        //
+        // Retrieve all Orders from the database
+        $orders = Orders::all();
+
+        // Return a JSON response with the tasks data
+        return response()->json(['data' => $orders]);
     }
 
     /**
