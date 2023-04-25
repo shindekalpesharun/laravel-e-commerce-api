@@ -5,13 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Orders extends Model
+class OrderItems extends Model
 {
     use HasFactory;
 
-    protected $table = 'orders';
+    protected $table = 'order_items';
 
-    protected $fillable = ['user_id', 'payment_method', 'payment_status', 'shipping_address', 'billing_address', 'total_price'];
+    protected $fillable = ['product_id', 'quantity', 'price'];
 
     /**
      * The attributes that should be hidden for serialization.

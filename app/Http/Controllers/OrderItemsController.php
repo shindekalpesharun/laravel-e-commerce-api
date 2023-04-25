@@ -2,21 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Orders;
 use Illuminate\Http\Request;
 
-class OrdersController extends Controller
+class OrderItemsController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index()
     {
-        // Retrieve all Orders from the database
-        $orders = Orders::where([['user_id', $request->user()->id]])->get();
-
-        // Return a JSON response with the tasks data
-        return response()->json(['data' => $orders]);
+        //
     }
 
     /**

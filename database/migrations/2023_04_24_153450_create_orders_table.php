@@ -14,11 +14,11 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id')->unsigned()->index();
-            $table->dateTime('order_date');
             $table->string('payment_method');
-            $table->string('payment_status');
+            $table->boolean('payment_status');
             $table->string('shipping_address');
             $table->string('billing_address');
+            $table->integer('total_price');
             $table->timestamps();
             $table->timestamp('deleted_at')->nullable();
 

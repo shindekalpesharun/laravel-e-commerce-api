@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CartsController;
 use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\OrdersController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
@@ -42,4 +43,5 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
         return $request->user();
     });
     Route::resource('carts', CartsController::class);
+    Route::resource('orders', OrdersController::class);
 });
